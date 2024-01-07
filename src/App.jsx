@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Card from "./components/Card"
 function App() {
+  let [add , setAdd]=useState([])
+  let [add1 , setAdd1]=useState([])
   let [todo , setTodo ] = useState(
     [
       {
@@ -17,17 +19,37 @@ function App() {
         name: "Task-3",
         description : "Shop Home Page Task",
         status : "Completed"
+      },
+      {
+        name: "Task-4",
+        description : "Todo Task",
+        status : "Not Completed"
+      },
+      {
+        name: "Task-5",
+        description : "Router Task",
+        status : "Not Completed"
       }
     ]
   )
+  let handleAdd=()=>{
+    let newArray=[...todo]
+    newArray.push({
+      add , 
+      add1
+    }
+    )
+    setTodo(newArray)
+    
+  }
   return <>
   <div>
       <div className='heading'>
         <h1>My <span>Todo</span></h1>
           <div>
-            <input className='input' type="text" placeholder='Todo Name' />&nbsp;
-            <input className='input' type="text" placeholder='Todo Description'></input>&nbsp;
-            <button className='add_button'>Add <span>Todo</span></button>
+            <input className='input' type="text" value={add}  onChange={(e)=>{setAdd(e.target.value)}} placeholder='Todo Name' />&nbsp;
+            <input className='input' type="text" value={add1}  onChange={(e)=>{setAdd1(e.target.value)}} placeholder='Todo Description'></input>&nbsp;
+            <button onClick={()=>{handleAdd()}} className='add_button'>Add <span>Todo</span></button>
           </div>
       </div> 
 

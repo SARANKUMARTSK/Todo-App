@@ -7,12 +7,13 @@ function Card({todo,setTodo}) {
         newArray.splice(i,1)
         setTodo(newArray)
     }
+    console.log(todo.name);
   return <>
     <div className='todo_card'>
       <h2>Todo Name :{todo.name} </h2>
       <h2>Description :</h2>
-      <input className="todo_disc" type="text" >{todo.description}</input>
-        <div>
+      <input className="todo_disc" type="text" value={todo.description}></input>
+        <div>   
             <span>Status :</span>&nbsp;
             <select value={todo.status}>
                 {/* <option value="All">All</option> */}
@@ -21,7 +22,7 @@ function Card({todo,setTodo}) {
             </select>
         </div>
         <button className='edit_button'>Edit</button>
-        <button onClick={()=>{handleDelete(i)}} className='delete_button'>Delete</button>
+        <button onClick={()=>{handleDelete()}} className='delete_button'>Delete</button>
     </div>
   </>
 }

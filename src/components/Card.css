@@ -6,6 +6,7 @@
     padding: 10px;
     text-align: center;
     border-radius: 5px;
+    box-shadow: inset 1px 1px 100px lightgreen;
 }
 
 .todo_disc{
@@ -14,9 +15,13 @@
 }
 .edit_button{
     background-color: lawngreen;
+    font-weight: bolder;
+    color: white;
 }
 .delete_button{
     background-color: lightcoral;
+    font-weight: bolder;
+    color: white;
 }
 .todo_card>div{
     margin: 10px;
