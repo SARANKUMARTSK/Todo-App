@@ -1,14 +1,8 @@
 import React from 'react'
 import "./Card.css"
-function Card({todo,setTodo,data}) {
+function Card({todo,setTodo,data,handleDelete}) {
 
-  console.log(data);
-    let handleDelete=(i)=>{
-        let newArray = [...todo]
-        newArray.splice(i,1)
-        setTodo(newArray)
-    }
-    console.log(todo.name);
+   
 
     let handleEdit=(i)=>{
       
@@ -27,7 +21,7 @@ function Card({todo,setTodo,data}) {
             </select>
         </div>
         <button onClick={()=>{handleEdit()}}className='edit_button'>Edit</button>
-        <button onClick={()=>{handleDelete()}} className='delete_button'>Delete</button>
+        <button onClick={()=>{handleDelete(data.id)}} className='delete_button'>Delete</button>
     </div>
   </>
 }

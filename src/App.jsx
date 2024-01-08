@@ -1,46 +1,121 @@
 import React, { useState } from 'react'
 import Card from "./components/Card"
 function App() {
+
   let [add , setAdd]=useState([])
   let [add1 , setAdd1]=useState([])
   let [todo , setTodo ] = useState(
     [
       {
+        id : 1 ,
         name: "Task-1",
         description : "Price-Card Task",
         status : "Completed"
       },
       {
+        id : 2,
         name: "Task-2",
         description : "Landing Page Task",
         status : "Completed"
       },
       {
+        id : 3,
         name: "Task-3",
         description : "Shop Home Page Task",
         status : "Completed"
       },
       {
+        id : 4 ,
         name: "Task-4",
         description : "Todo Task",
         status : "Not Completed"
       },
       {
+        id : 5 ,
         name: "Task-5",
         description : "Router Task",
-        status : "Not Completed"
+        status : "Completed"
       }
     ]
   )
+  
+ const [value,setValue] = useState(
+    [
+      {
+        id : 1 ,
+        name: "Task-1",
+        description : "Price-Card Task",
+        status : "Completed"
+      },
+      {
+        id : 2,
+        name: "Task-2",
+        description : "Landing Page Task",
+        status : "Completed"
+      },
+      {
+        id : 3,
+        name: "Task-3",
+        description : "Shop Home Page Task",
+        status : "Completed"
+      },
+      {
+        id : 4 ,
+        name: "Task-4",
+        description : "Todo Task",
+        status : "Not Completed"
+      },
+      {
+        id : 5 ,
+        name: "Task-5",
+        description : "Router Task",
+        status : "Completed"
+      }
+    ])
+  
+
+
+  let handleDelete=(i)=>{
+      let newArray = [...todo]
+      newArray=newArray.filter((todo)=>(todo.id!==i))
+      setTodo(newArray);
+      setValue(newArray);
+  }
+
+
   let handleAdd=()=>{
+    console.log(add,add1);
     let newArray=[...todo]
     newArray.push({
-      add, 
-      add1
+      id:`${add}${Math.random()}`,
+      name:add, 
+      description: add1, 
+      status : "Not Completed"
     }
     )
-    setTodo(newArray)
-    
+    setTodo(newArray);
+    setValue(newArray);
+    console.log(newArray);
+  }
+  const onFilter=(e)=>{
+    console.log(e.target.value);
+    const status = e.target.value;
+
+    if(status==='Not Completed'){
+      let newArray = [...value];
+      newArray=newArray.filter((data)=>data.status==='Not Completed')
+      setTodo(newArray);
+    }
+    else if(status==='Completed'){
+      let newArray = [...value];
+      newArray=newArray.filter((data)=>data.status==='Completed')
+      setTodo(newArray);
+    }
+    else
+    {
+      let newArray = [...value];
+      setTodo(newArray);
+    }
   }
   return <>
   <div>
@@ -49,7 +124,7 @@ function App() {
           <div>
             <input className='input' type="text" value={add}  onChange={(e)=>{setAdd(e.target.value)}} placeholder='Todo Name' />&nbsp;
             <input className='input' type="text" value={add1}  onChange={(e)=>{setAdd1(e.target.value)}} placeholder='Todo Description'></input>&nbsp;
-            <button onClick={()=>{handleAdd()}} className='add_button'>Add <span>Todo</span></button>
+            <button onClick={()=>{handleAdd(add,add1)}} className='add_button'>Add <span>Todo</span></button>
           </div>
       </div> 
 
@@ -57,8 +132,8 @@ function App() {
         <span className='list_heading1'>My <span>Todo's</span></span>
         <div>
             <span><b>Select Filter:</b></span>
-            <select>
-              <option className="option_all" value="All">All</option>
+            <select onChange={(e)=>onFilter(e)}>
+              <option  className="option_all" value="All">All</option>
               <option className="option_completed" value="Completed">Completed</option>
               <option className="option_notCompleted" value="Not Completed">Not Completed</option>
             </select>
@@ -68,7 +143,7 @@ function App() {
       <div className='my_list'>
         {
           todo.map((e,i)=>{
-              return <Card data={e} todo={todo} setTodo={setTodo} key={i}/>
+              return <Card data={e} todo={todo} setTodo={setTodo} key={e.id} handleDelete={handleDelete} />
           })
         }
           
