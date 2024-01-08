@@ -35,7 +35,7 @@ function App() {
   let handleAdd=()=>{
     let newArray=[...todo]
     newArray.push({
-      add , 
+      add, 
       add1
     }
     )
@@ -68,7 +68,7 @@ function App() {
       <div className='my_list'>
         {
           todo.map((e,i)=>{
-              return <Card todo={todo} setTodo={setTodo} key={i}/>
+              return <Card data={e} todo={todo} setTodo={setTodo} key={i}/>
           })
         }
           

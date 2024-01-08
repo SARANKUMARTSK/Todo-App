@@ -32,5 +32,7 @@
     border-radius: 5px;
 }
 .todo_card>button:hover{
-    cursor: pointer;
+  transition: transform 200ms ease-in-out;  
+  transform: scale(1.09);
+  cursor: pointer;
 }
