@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Card from "./components/Card"
+import Modal from './components/Modal'
 function App() {
+  let [showModal , setShowModal] = useState(false);
+  let [editName , setEditName] = useState("");
+  let [editDescription,setEditDescription] = useState("");
+  let [edittodo , setEditTodo]= useState({})
 
   let [add , setAdd]=useState([])
   let [add1 , setAdd1]=useState([])
@@ -72,19 +77,42 @@ function App() {
         status : "Completed"
       }
     ])
-  
+  let handleEdit =(i)=>{
+    setShowModal(true)
+    // console.log(i);
+    let newArray = [...todo]
+    newArray=newArray.filter((todo)=>(todo.id===i))
+    // console.log(newArray);
+    setEditTodo(newArray[0])
 
-
+  }
+  let handleUpdate = (name , description , status)=>{
+   console.log(name,description,edittodo);
+   let newArray = [...todo];
+   newArray.map((e,i)=>{
+    if(e.id===edittodo.id){
+      newArray[i]={
+        id:edittodo.id,
+        name,
+        description,
+        status
+      }
+      setShowModal(false)
+      setEditTodo({})
+      setTodo(newArray);
+      return;
+    }
+    console.log(i);
+   })
+   
+  }
   let handleDelete=(i)=>{
       let newArray = [...todo]
       newArray=newArray.filter((todo)=>(todo.id!==i))
       setTodo(newArray);
       setValue(newArray);
   }
-
-
   let handleAdd=()=>{
-    console.log(add,add1);
     let newArray=[...todo]
     newArray.push({
       id:`${add}${Math.random()}`,
@@ -95,10 +123,9 @@ function App() {
     )
     setTodo(newArray);
     setValue(newArray);
-    console.log(newArray);
   }
   const onFilter=(e)=>{
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const status = e.target.value;
 
     if(status==='Not Completed'){
@@ -122,11 +149,15 @@ function App() {
       <div className='heading'>
         <h1>My <span>Todo</span></h1>
           <div>
-            <input className='input' type="text" value={add}  onChange={(e)=>{setAdd(e.target.value)}} placeholder='Todo Name' />&nbsp;
-            <input className='input' type="text" value={add1}  onChange={(e)=>{setAdd1(e.target.value)}} placeholder='Todo Description'></input>&nbsp;
+            <input className='input' type="text" value={add} onChange={(e)=>{setAdd(e.target.value)}} placeholder='Todo Name' />&nbsp;
+            <input className='input' type="text" value={add1} onChange={(e)=>{setAdd1(e.target.value)}} placeholder='Todo Description'></input>&nbsp;
             <button onClick={()=>{handleAdd(add,add1)}} className='add_button'>Add <span>Todo</span></button>
           </div>
       </div> 
+      {
+        showModal && <Modal  data={edittodo} editDescription={editDescription} handleEdit={handleUpdate} setEditDescription={setEditDescription}/>
+      }
+        
 
       <div className='list_heading'>
         <span className='list_heading1'>My <span>Todo's</span></span>
@@ -143,7 +174,7 @@ function App() {
       <div className='my_list'>
         {
           todo.map((e,i)=>{
-              return <Card data={e} todo={todo} setTodo={setTodo} key={e.id} handleDelete={handleDelete} />
+              return <Card data={e} todo={todo} setTodo={setTodo} key={e.id}  handleDelete={handleDelete} handleUpdate={handleUpdate} handleEdit={handleEdit} />
           })
         }
           
