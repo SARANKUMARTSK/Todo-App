@@ -1,12 +1,9 @@
 import React from 'react'
 import "./Card.css"
-function Card({todo,setTodo,data,handleDelete}) {
+function Card({todo,setTodo,data,handleDelete,handleEdit,handleUpdate}) {
 
    
 
-    let handleEdit=(i)=>{
-      
-    }
   return <>
     <div className='todo_card'>
       <h2>Todo Name :{data.name} </h2>
@@ -20,7 +17,7 @@ function Card({todo,setTodo,data,handleDelete}) {
                 <option value="Not Completed">Not Completed</option>
             </select>
         </div>
-        <button onClick={()=>{handleEdit()}}className='edit_button'>Edit</button>
+        <button onClick={()=>{handleEdit(data.id)}}className='edit_button'>Edit</button>
         <button onClick={()=>{handleDelete(data.id)}} className='delete_button'>Delete</button>
     </div>
   </>
